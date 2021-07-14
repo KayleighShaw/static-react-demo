@@ -15,11 +15,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Package setup
+        run: npm i --package-lock-only
       - name: Clean install dependencies
         # ci = clean install
         run: npm ci
       - name: Build react app
         run: npm run build
+      - name: CDK package-lock
+        working-directory: ./cdk
+        run: npm i --package-lock-only
       - name: Clean install CDK and dependencies
         working-directory: ./cdk
         run: npm ci
