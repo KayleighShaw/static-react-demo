@@ -1,0 +1,18 @@
+name: Deploy to AWS
+on:
+  push:
+    branches:
+      # main = production branch
+      - main
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    # need env variables
+    env:
+      # github > settings > settings > can store variables
+      AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clean install dependencies
+        run: npm ci
